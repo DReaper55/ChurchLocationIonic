@@ -1,0 +1,20 @@
+<ion-header class="ion-no-border"></ion-header>
+<ion-content>
+  <div style="float: left;" id="map_canvas" style="height: 500%; width: 100%;">
+    
+  </div>
+  <div>
+    <ion-fab (click)="animateCamera()" vertical="bottom" horizontal="end" edge slot="fixed">
+      <ion-fab-button style="--color: var(--ion-color-primary); --background: white; margin-bottom: 280%;">
+        <ion-icon name="compass-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  <ion-fab (click)="showNearestChurch()" vertical="bottom" horizontal="end" edge slot="fixed">
+      <ion-fab-button style="--color: white; --background: var(--ion-color-primary); margin-bottom: 150%;">
+        <ion-icon name="locate-outline"></ion-icon>
+      </ion-fab-button>
+      
+  </ion-fab>
+</div>
+</ion-content>

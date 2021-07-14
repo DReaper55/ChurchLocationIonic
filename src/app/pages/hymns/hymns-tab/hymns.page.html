@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>hymns</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines='none' *ngFor = 'let hymnSong of hymnSongs'>
+      <ion-card routerLink="/hymns/{{hymnSong['title']}}">
+        <ion-item>
+        <ion-label class='hymnNumber'> {{hymnSong['number']}} </ion-label>
+        <ion-label class='hymnTitle'> {{hymnSong['title']}} </ion-label>
+    </ion-item>
+  </ion-card>
+
+  </ion-list>
+
+</ion-content>

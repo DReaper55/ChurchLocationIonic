@@ -1,5 +1,7 @@
 {
-  "name": "rameij-company",
-  "integrations": {},
+  "name": "church-location",
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
