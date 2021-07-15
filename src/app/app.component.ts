@@ -13,17 +13,13 @@ import { HostListener } from "@angular/core";
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  screenHeight: number;
-  screenWidth: number;
-
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
   ) {
     this.initializeApp();
-
-    this.getScreenSize();
   }
 
   initializeApp() {
@@ -33,13 +29,6 @@ export class AppComponent {
       this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByName('blue');
     });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  getScreenSize(event?){
-          this.screenHeight = window.innerHeight;
-          this.screenWidth = window.innerWidth;
-          console.log(this.screenHeight, this.screenWidth);
   }
   
 }

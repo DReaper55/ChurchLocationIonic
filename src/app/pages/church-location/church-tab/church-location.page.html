@@ -1,20 +1,42 @@
-<ion-header class="ion-no-border"></ion-header>
+<ion-header class="ion-no-border"> </ion-header>
+
 <ion-content>
-  <div style="float: left;" id="map_canvas" style="height: 500%; width: 100%;">
-    
+  <div style="float: left" id="map_canvas" style="height: 500%; width: 100%">
+    <div>
+      <ion-item lines="none" class="custom-toolbar">
+        <ion-button routerLink="search-church" id="find-location-text" vertical="top" fill="clear">
+          Find a location
+        </ion-button>
+        <ion-button size="default" (click)="showDialog()" fill="clear">
+          <ion-icon id="find-location-button" slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
   </div>
+
   <div>
-    <ion-fab (click)="animateCamera()" vertical="bottom" horizontal="end" edge slot="fixed">
-      <ion-fab-button style="--color: var(--ion-color-primary); --background: white; margin-bottom: 280%;">
+    <ion-fab
+      (click)="animateCamera()"
+      vertical="bottom"
+      horizontal="end"
+      edge
+      slot="fixed"
+    >
+      <ion-fab-button id="my-location-fab">
         <ion-icon name="compass-outline"></ion-icon>
       </ion-fab-button>
     </ion-fab>
 
-  <ion-fab (click)="showNearestChurch()" vertical="bottom" horizontal="end" edge slot="fixed">
-      <ion-fab-button style="--color: white; --background: var(--ion-color-primary); margin-bottom: 150%;">
+    <ion-fab
+      (click)="showNearestChurch()"
+      vertical="bottom"
+      horizontal="end"
+      edge
+      slot="fixed"
+    >
+      <ion-fab-button id="nearest-church-fab">
         <ion-icon name="locate-outline"></ion-icon>
       </ion-fab-button>
-      
-  </ion-fab>
-</div>
+    </ion-fab>
+  </div>
 </ion-content>

@@ -14,6 +14,7 @@ import {
   MyLocation,
 } from "@ionic-native/google-maps";
 import { LocationAccuracy } from "@ionic-native/location-accuracy/ngx";
+import { AlertController } from "@ionic/angular";
 import { ChurchModel } from "../church-model/church-model";
 import { ChurchDistance } from "../church-model/church.distance-model";
 import { ChurchLocationService } from "../church-service/church-location.service";
@@ -38,15 +39,26 @@ export class ChurchLocationPage implements OnInit {
   defaultLatLng: LatLng = new LatLng(7.84785389917, 20.9803605602);
   isMarkerVisible: boolean = false;
 
+  ionleftPage: boolean = false;
+
+  counter: number = 0;
+
   constructor(
     private androidPermission: AndroidPermissions,
     private geolocation: Geolocation,
     private locationAccuracy: LocationAccuracy,
-    private churchService: ChurchLocationService
+    private churchService: ChurchLocationService,
+    private alertCntr: AlertController
   ) {}
 
   ngOnInit(): void {
     this.loadMap();
+  }
+
+  ionViewDidEnter() {
+    this.counter += 1;
+
+    this.ionleftPage = false;
   }
 
   loadMap() {
@@ -76,26 +88,50 @@ export class ChurchLocationPage implements OnInit {
 
     this.map = GoogleMaps.create("map_canvas", mapOptions);
     this.map.setMyLocationEnabled(true);
-    this.map.setMyLocationButtonEnabled(true);
+    this.map.setMyLocationButtonEnabled(false);
     this.map.setCompassEnabled(true);
 
     this.animateCamera();
 
     this.map
       .addEventListener(GoogleMapsEvent.MAP_READY)
-      .subscribe(() => this.getNearestChurch());
+      .subscribe(() => {
+        if(this.counter === 1 && this.ionleftPage === false){
+          setTimeout(async () => await this.showDialog(), 7000)
+        }
+
+        this.getNearestChurch()
+      });
 
     // update position
     if (this.map !== undefined) {
-      this.geolocation.watchPosition().subscribe(
-        (data: Geoposition) => {
-
-          if(this.isMarkerVisible === false){
+      this.geolocation.watchPosition().subscribe(() => {
+        if (this.isMarkerVisible === false) {
+          if (this.ionleftPage === false) {
             this.animateCamera();
           }
-        },
-      );
+        }
+      });
     }
+  }
+
+  async showDialog() {
+    const alertDialog = await this.alertCntr.create({
+      header: "Church Location",
+      message: "Find the nearest church?",
+      buttons: [
+        {
+          text: "NO",
+          role: "cancel",
+        },
+        {
+          text: "YES",
+          handler: () => this.showNearestChurch(),
+        },
+      ],
+    });
+
+    await alertDialog.present();
   }
 
   animateCamera() {
@@ -104,6 +140,8 @@ export class ChurchLocationPage implements OnInit {
         LocationService.getMyLocation().then((myLocation: MyLocation) => {
           this.currentLat = myLocation.latLng.lat;
           this.currentLng = myLocation.latLng.lng;
+
+          console.log(this.currentLat);
 
           this.map.animateCamera({
             target: myLocation.latLng,
@@ -135,7 +173,7 @@ export class ChurchLocationPage implements OnInit {
           lat: this.nearestChurch.churchLat,
           lng: this.nearestChurch.churchLng,
         },
-        zoom: 15
+        zoom: 15,
       });
     }
   }
@@ -261,5 +299,10 @@ export class ChurchLocationPage implements OnInit {
         this.isPermissionGranted = false;
       }
     });
+  }
+
+  ionViewDidLeave() {
+    console.log("Left page");
+    this.ionleftPage = true;
   }
 }

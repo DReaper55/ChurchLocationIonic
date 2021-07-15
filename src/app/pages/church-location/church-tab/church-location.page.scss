@@ -1,0 +1,32 @@
+.custom-toolbar {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    opacity: .5;
+    background-color: white;
+}
+
+.custom-toolbar #find-location-text {
+    text-transform: none; 
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: 20%;
+    color: rgb(41, 41, 41);
+}
+
+.custom-toolbar #find-location-button {
+    color: black;
+}
+
+#my-location-fab {
+    --color: var(--ion-color-primary); 
+    --background: white; 
+    margin-bottom: 280%;
+}
+
+#nearest-church-fab {
+    --color: white; 
+    --background: var(--ion-color-primary);
+    margin-bottom: 150%;
+}

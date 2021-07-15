@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: ChurchLocationPage
-  }
+  },
+  {
+    path: 'search-church',
+    loadChildren: () => import('../search-church/search-church.module').then( m => m.SearchChurchPageModule)
+  },
 ];
 
 @NgModule({

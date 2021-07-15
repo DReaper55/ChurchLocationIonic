@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'hymns/:hymnId',
     loadChildren: () => import('./pages/hymns/hymn-song/hymn-song.module').then( m => m.HymnSongPageModule)
   },
+  
    
 ];
 

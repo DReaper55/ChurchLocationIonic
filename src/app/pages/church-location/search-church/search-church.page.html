@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons *ngIf="!showSearchBar" slot="start">
+      <ion-back-button defaultHref="tabs/church-location"></ion-back-button>
+    </ion-buttons>
+    <ion-button *ngIf="!showSearchBar" (click)="showSearchBar = true" fill="clear" size="default" slot="end">
+      <ion-icon name="search"></ion-icon>
+    </ion-button>
+    <ion-searchbar *ngIf="showSearchBar" showCancelButton="always" (ionCancel)="showSearchBar = false" [(ngModel)]="queryText" (ionChange)="searchForChurch()" placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card button="true">
+    <ion-card-content>
+      <ion-title>Find all locations</ion-title>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-virtual-scroll [items]="churches">
+    <ion-card button="true" *virtualItem="let church">
+      <ion-card-content>
+        <ion-title>{{church.churchName}}</ion-title>
+      </ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
+</ion-content>
